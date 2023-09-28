@@ -1270,7 +1270,7 @@ TEST(time, strptime_s_nothing) {
 }
 
 TEST(time, timespec_get) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   timespec ts = {};
   ASSERT_EQ(TIME_UTC, timespec_get(&ts, TIME_UTC));
   ASSERT_EQ(TIME_MONOTONIC, timespec_get(&ts, TIME_MONOTONIC));
@@ -1282,7 +1282,7 @@ TEST(time, timespec_get) {
 }
 
 TEST(time, timespec_get_invalid) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   timespec ts = {};
   ASSERT_EQ(0, timespec_get(&ts, 123));
 #else
@@ -1291,7 +1291,7 @@ TEST(time, timespec_get_invalid) {
 }
 
 TEST(time, timespec_getres) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   timespec ts = {};
   ASSERT_EQ(TIME_UTC, timespec_getres(&ts, TIME_UTC));
   ASSERT_EQ(1, ts.tv_nsec);
@@ -1302,7 +1302,7 @@ TEST(time, timespec_getres) {
 }
 
 TEST(time, timespec_getres_invalid) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   timespec ts = {};
   ASSERT_EQ(0, timespec_getres(&ts, 123));
 #else
@@ -1316,7 +1316,7 @@ TEST(time, difftime) {
 }
 
 TEST(time, tzfree_null) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   tzfree(nullptr);
 #else
   GTEST_SKIP() << "glibc doesn't have timezone_t";
@@ -1324,7 +1324,7 @@ TEST(time, tzfree_null) {
 }
 
 TEST(time, localtime_rz) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   setenv("TZ", "America/Los_Angeles", 1);
   tzset();
 
@@ -1378,7 +1378,7 @@ TEST(time, localtime_rz) {
 }
 
 TEST(time, mktime_z) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   setenv("TZ", "America/Los_Angeles", 1);
   tzset();
 
@@ -1418,7 +1418,7 @@ TEST(time, mktime_z) {
 }
 
 TEST(time, tzalloc_nullptr) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   // tzalloc(nullptr) returns the system timezone.
   timezone_t default_tz = tzalloc(nullptr);
   ASSERT_NE(nullptr, default_tz);
@@ -1454,7 +1454,7 @@ TEST(time, tzalloc_nullptr) {
 }
 
 TEST(time, tzalloc_unique_ptr) {
-#if __BIONIC__
+#if defined(__BIONIC__)
   std::unique_ptr<std::remove_pointer_t<timezone_t>, decltype(&tzfree)> tz{tzalloc("Asia/Seoul"),
                                                                            tzfree};
 #else
