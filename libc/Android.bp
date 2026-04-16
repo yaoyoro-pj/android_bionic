@@ -117,7 +117,7 @@ cc_defaults {
 
     // lld complains about duplicate symbols in libcrt and libgcc. Suppress the
     // warning since this is intended right now.
-    ldflags: ["-Wl,-z,muldefs"],
+    ldflags: ["-Wl,-z,muldefs,-O3"],
 
     multilib: {
         lib64: {
