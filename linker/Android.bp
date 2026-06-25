@@ -415,8 +415,6 @@ cc_binary {
     },
 
     afdo: true,
-    // Workaround runtime breakage
-    lto_O0: true,
 }
 
 // ========================================================
